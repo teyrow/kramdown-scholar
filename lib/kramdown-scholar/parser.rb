@@ -19,4 +19,4 @@
 # Kramdown parser
 require 'kramdown-scholar/parser/kramdown'
 # HTML parser
-require 'kramdown-scholar/parser/html'
+#require 'kramdown-scholar/parser/html'
