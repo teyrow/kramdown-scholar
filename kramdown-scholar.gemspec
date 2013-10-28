@@ -7,13 +7,14 @@ Gem::Specification.new do |gem|
   gem.name          = "kramdown-scholar"
   gem.version       = Kramdown::Parser::KRAMDOWN_GIST_VERSION
   gem.platform      = Gem::Platform::RUBY
-  gem.authors       = ["Matteo Panella"]
+  gem.authors       = ["Andreas Josephson"]
   gem.email         = ["andreas@teyrow.com"]
   gem.description   = %q{Kramdown syntax scholar}
   gem.summary       = %q{Extend Kramdown syntax to generate latex output for scholar}
-  gem.homepage      = "https://github.com/rfc1459/kramdown-scholar"
+  gem.homepage      = "https://github.com/teyrow/kramdown-scholar"
 
   gem.add_dependency('kramdown', '~> 0.14.0')
+  gem.add_dependency('rake')
 
   gem.add_development_dependency('yard', '~> 0.8.3')
   gem.add_development_dependency('bundler', '>= 1.0.0')
