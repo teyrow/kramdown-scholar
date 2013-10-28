@@ -10,22 +10,6 @@ class Kramdown::Parser::KramdownScholar < Kramdown::Parser::Kramdown
    @block_parsers.unshift(:pages)
   end
 
-  # def handle_extension(name, opts, body, type)
-  #   case name
-  #   when 'pages'
-  #     #binding.pry
-  #     el = new_block_el(:pages)
-  #     puts body
-  #     parse_spans(el, body)
-  #     @tree.children << el
-  #     #@tree.children << el
-  #     #parse_blocks(el, body)
-  #     true
-  #   else 
-  #     super
-  #   end
-  # end
-
   ERB_TAGS_START = /<%(.*?)%>/
 
   def parse_erb_tags
@@ -36,17 +20,26 @@ class Kramdown::Parser::KramdownScholar < Kramdown::Parser::Kramdown
 
 
 
+  #PAGES_START = /^#{OPT_SPACE}PAGES:(.*?):PAGES ?\n/m
   PAGES_START = /^#{OPT_SPACE}PAGES: ?/
-
+  PAGES_END = /^#{OPT_SPACE}:PAGES ?/
   # Parse the pages at the current location.
   def parse_pages
-    result = @src.scan(PARAGRAPH_MATCH)
-    while !@src.match?(self.class::LAZY_END)
-      result << @src.scan(PARAGRAPH_MATCH) rescue break
+    result = @src.scan_until(PAGES_END)
+    
+    unless result
+      warning('Warning: PAGES: start found but missing :PAGES')
+      return false
     end
 
-    result.gsub!(PAGES_START, '')
+    
+    #while !@src.match?(self.class::PAGES_END)
+    #  result << @src.scan(PARAGRAPH_MATCH) 
+    #end
 
+    result.gsub!(PAGES_START, '')
+    result.gsub!(PAGES_END, '')
+    #@src.pos += @src.matched_size
     el = new_block_el(:pages)
     # pry.binding
     @tree.children << el
