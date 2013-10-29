@@ -26,7 +26,7 @@ module Kramdown
   # @private
   class Element
     # Register :gist as a block-level element
-    CATEGORY[:gist] = :block
+    CATEGORY[:pages] = :block
   end
 
 end

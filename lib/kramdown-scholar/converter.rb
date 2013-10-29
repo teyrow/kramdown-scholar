@@ -21,14 +21,6 @@ module Kramdown
 
     class Html
 
-      # Convert a gist element into a `<script>` tag suitable for embedding.
-      #
-      # @return [String] an HTML fragment representing this element
-      # @api private
-      def convert_gist(el, indent)
-        "#{' '*indent}<script src=\"https://gist.github.com/#{el.value}.js\"></script>\n"
-      end
-
       def convert_pages(el, indent)
         "#{' '*indent}#{el.value}\n"
       end
@@ -36,14 +28,6 @@ module Kramdown
     end
 
     class Kramdown
-
-      # Convert a gist element into the equivalent Kramdown "tag"
-      #
-      # @return [String] an Kramdown fragment representing this element
-      # @api private
-      def convert_gist(el, opts)
-        "*{gist:#{el.value}}\n"
-      end
 
       def convert_pages(el, opts)
         "*{pages:#{el.value}}\n"
@@ -53,19 +37,8 @@ module Kramdown
 
     class Latex
 
-      # Convert a gist element into a LaTeX paragraph stating the Gist ID and
-      # including the target hyperlink as metadata suitable for some output
-      # formats (PDF).
-      #
-      # @return [String] a LaTeX fragment representing this element
-      # @api private
-      def convert_gist(el, opts)
-        gist_id = el.value
-        "See \\href{https://gist.github.com/#{gist_id}}{Gist #{gist_id}}.\n\n"
-      end
-
       def convert_pages(el, opts)
-        latex_environment('pages', el, inner(el, opts))
+        latex_environment('pages', el, inner(el, opts) ) <<   "\\Pages" 
       end
 
     end

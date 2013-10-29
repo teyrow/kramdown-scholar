@@ -5,7 +5,7 @@ require 'kramdown-scholar/version'
 
 Gem::Specification.new do |gem|
   gem.name          = "kramdown-scholar"
-  gem.version       = Kramdown::Parser::KRAMDOWN_GIST_VERSION
+  gem.version       = Kramdown::Parser::KRAMDOWN_SCHOLAR_VERSION
   gem.platform      = Gem::Platform::RUBY
   gem.authors       = ["Andreas Josephson"]
   gem.email         = ["andreas@teyrow.com"]
