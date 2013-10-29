@@ -30,7 +30,7 @@ describe Kramdown::Parser::KramdownScholar do
       doc = ::Kramdown::Document.new(File.read(f), :input => 'KramdownScholar')
     
       it "converts to valid latex" do
-        expected = File.read(File.join(fixtures_path, "#{fixture}.latex"))
+        expected = File.read(File.join(fixtures_path, "#{fixture}.tex"))
         doc.to_latex.should eql(expected)
       end
     
