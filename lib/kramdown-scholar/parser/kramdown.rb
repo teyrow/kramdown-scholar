@@ -18,8 +18,6 @@ class Kramdown::Parser::KramdownScholar < Kramdown::Parser::Kramdown
   end
   define_parser(:erb_tags, ERB_TAGS_START, '<%')
 
-
-
   #PAGES_START = /^#{OPT_SPACE}PAGES:(.*?):PAGES ?\n/m
   PAGES_START = /^#{OPT_SPACE}PAGES: ?/
   PAGES_END = /^#{OPT_SPACE}:PAGES ?/
@@ -32,20 +30,28 @@ class Kramdown::Parser::KramdownScholar < Kramdown::Parser::Kramdown
       return false
     end
 
-    
-    #while !@src.match?(self.class::PAGES_END)
-    #  result << @src.scan(PARAGRAPH_MATCH) 
-    #end
-
     result.gsub!(PAGES_START, '')
     result.gsub!(PAGES_END, '')
-    #@src.pos += @src.matched_size
+
     el = new_block_el(:pages)
-    # pry.binding
-    @tree.children << el
     parse_blocks(el, result)
+    # not interested in the blanks
+    el.children.reject!{|e| e.type == :blank}
+    left = new_block_el(:parallel_side)
+    left.options['side'] = 'Left'
+    right= new_block_el(:parallel_side)
+    right.options['side']= 'Right'
+    # TODO assert same length in even and odd. 
+    el.children.each_with_index do |e, i| 
+      para = new_block_el(:pstart)
+      para.children << e
+      (i.even? ? left : right ).children << para
+    end
+    el.children = [left, right]
+    #el.children << right
+    @tree.children << el
     true
   end
-  define_parser(:pages, PAGES_START)  
+  define_parser(:pages, PAGES_START)
 
-  end
+end

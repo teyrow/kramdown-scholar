@@ -41,6 +41,17 @@ module Kramdown
         latex_environment('pages', el, inner(el, opts) ) <<   "\\Pages" 
       end
 
+      def convert_parallel_side(el, opts)
+        # TODO assert opts['parallel_side'] is Right or Left
+        env = "#{el.options['side']}side"
+        numbering = "\\beginnumbering\n#{inner(el, opts)}\\endnumbering\n"
+        latex_environment(env, el, numbering )
+      end
+
+      def convert_pstart(el, opts)
+        "\\pstart\n#{inner(el, opts)}\\pend\n"
+      end
+
     end
 
   end

@@ -8,7 +8,7 @@ PAGES:
 more random *apa*
 ending pages
 
-right text lorem with _italic_ 
+right text lorem with _italic_
 
 
 

@@ -26,11 +26,12 @@ describe Kramdown::Parser::KramdownScholar do
     text = File.read(f)
     fixture = File.basename(f, '.md')
     
-    context "when parsing #{fixture}" do
-      doc = ::Kramdown::Document.new(File.read(f), :input => 'KramdownScholar')
+    context "when parsing #{fixture}.md" do
     
       it "converts to valid latex" do
+        doc = ::Kramdown::Document.new(File.read(f), :input => 'KramdownScholar')
         expected = File.read(File.join(fixtures_path, "#{fixture}.tex"))
+        #puts doc.to_latex; exit(0)
         doc.to_latex.should eql(expected)
       end
     
