@@ -20,7 +20,7 @@ class Kramdown::Parser::KramdownScholar < Kramdown::Parser::Kramdown
 
   #PAGES_START = /^#{OPT_SPACE}PAGES:(.*?):PAGES ?\n/m
   PAGES_START = /^#{OPT_SPACE}PAGES: ?/
-  PAGES_END = /^#{OPT_SPACE}:PAGES ?/
+  PAGES_END = HR_START
   # Parse the pages at the current location.
   def parse_pages
     result = @src.scan_until(PAGES_END)

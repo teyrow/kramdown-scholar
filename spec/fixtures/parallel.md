@@ -12,5 +12,6 @@ right text lorem with _italic_
 
 
 
-:PAGES
+---
+
 more text

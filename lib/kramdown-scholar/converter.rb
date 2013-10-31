@@ -38,11 +38,12 @@ module Kramdown
     class Latex
 
       def convert_pages(el, opts)
+        @data[:packages] << ['eledpar', 'eledmac']
         latex_environment('pages', el, inner(el, opts) ) <<   "\\Pages" 
       end
 
       def convert_parallel_side(el, opts)
-        # TODO assert opts['parallel_side'] is Right or Left
+        # TODO assert opts['side'] is Right or Left
         env = "#{el.options['side']}side"
         numbering = "\\beginnumbering\n#{inner(el, opts)}\\endnumbering\n"
         latex_environment(env, el, numbering )
