@@ -22,6 +22,7 @@ Gem::Specification.new do |gem|
   gem.add_development_dependency('redcarpet', '~> 2.0')
   gem.add_development_dependency('github-markup', '~> 0.7.4')
   gem.add_development_dependency('pry')
+  gem.add_development_dependency('cucumber')
 
   gem.files         = `git ls-files`.split($/)
   gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }

@@ -38,7 +38,9 @@ module Kramdown
     class Latex
 
       def convert_pages(el, opts)
-        @data[:packages] << ['eledpar', 'eledmac']
+        @data[:packages] << 'eledmac' #Must be before eledpar
+        @data[:packages] << 'eledpar'        
+        
         latex_environment('pages', el, inner(el, opts) ) <<   "\\Pages" 
       end
 
