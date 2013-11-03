@@ -46,3 +46,11 @@ bad [URL with empty title](something.html '')
 bad [URL](
 
 bad [URL](no
+
+simple [the *bold text*](^footnote **with** space)
+
+simple [more text](^second footer)
+
+simple [the *bold text*](A^footnote **with** space)
+
+simple [more text](A^second footer)

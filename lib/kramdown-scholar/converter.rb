@@ -60,7 +60,13 @@ module Kramdown
       end
 
       def convert_a(el, opts)
-        super
+        url = el.attr['href']
+        if url =~ /^([A-G]*)\^(.*)/
+          @data[:packages] << 'eledmac'
+          "\\edtext{#{inner(el, opts)}}{\\footnote#{$1}{#{$2}}}"
+        else
+          super
+        end
       end
 
     end

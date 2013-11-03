@@ -13,3 +13,4 @@ Scenario Outline: pdf generation
     | mdfilename          | template |
     | parallel            | article  |
     | inline_footnote     | article  |
+    | ed_text             | article  |
