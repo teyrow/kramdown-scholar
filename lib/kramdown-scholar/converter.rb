@@ -55,6 +55,10 @@ module Kramdown
         "\\pstart\n#{inner(el, opts)}\\pend\n"
       end
 
+      def convert_inline_footnote(el, opts)
+        "\\footnote{#{latex_link_target(el)}#{inner(el, opts)}}"
+      end
+
     end
 
   end
