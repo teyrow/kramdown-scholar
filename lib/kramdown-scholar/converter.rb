@@ -35,7 +35,7 @@ module Kramdown
 
     end
 
-    class Latex
+    class LatexScholar < Latex
 
       def convert_pages(el, opts)
         @data[:packages] << 'eledmac' #Must be before eledpar
@@ -57,6 +57,10 @@ module Kramdown
 
       def convert_inline_footnote(el, opts)
         "\\footnote{#{latex_link_target(el)}#{inner(el, opts)}}"
+      end
+
+      def convert_a(el, opts)
+        super
       end
 
     end

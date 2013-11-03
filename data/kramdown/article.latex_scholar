@@ -1,0 +1,42 @@
+\documentclass[12pt|draft]{article}
+
+
+<% if RUBY_VERSION >= '1.9' %>
+%\usepackage[utf8x]{inputenc}
+<% else %>
+%\usepackage[mathletters]{ucs}
+%\usepackage[utf8x]{inputenc}
+<% end %>
+\usepackage[T1]{fontenc}
+\usepackage{listings}
+\usepackage{hyperref}
+\usepackage{fontspec,xunicode}
+\usepackage[english]{babel}
+\setmainfont{DejaVu Serif}
+
+<% @converter.data[:packages].each {|pkg| %>\usepackage{<%= pkg %>}
+<% } %>
+
+<% if @converter.data[:packages].include?('fancyvrb') %>
+\VerbatimFootnotes
+<% end %>
+
+<% if @converter.data[:packages].include?('acronym') %>
+<%   @converter.root.options[:abbrev_defs].each_pair do |k,v| %>\acrodef{<%= @converter.normalize_abbreviation_key(k) %>}[<%= k %>]{<%= @converter.escape(v) %>}
+<%   end %>
+<% end %>
+
+\hypersetup{colorlinks=false,urlcolor=blue}
+
+\title{This is the title: it contains a colon}
+\author{Author One}
+\date{2013-10-23}
+
+\begin{document}
+\maketitle
+
+\tableofcontents
+
+<%= body %>
+
+\end{document}
