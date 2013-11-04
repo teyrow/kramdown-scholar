@@ -45,17 +45,30 @@ class Kramdown::Parser::KramdownScholar < Kramdown::Parser::Kramdown
   end
   define_parser(:pages, PAGES_START)
 
-  INLINE_FOOTNOTE_START = /\^\[/
-  INLINE_FOOTNOTE_END   = /(\])/  
+  
+  INLINE_FOOTNOTE_START = /\[(.*?)\]\^([A-G]?)\(/
+  LEMMA_START           = /\[/
+  LEMMA_END             = /\]/
+  INLINE_FOOTNOTE_END   = /\)/
   
   # Parse the inline footnote marker at the current location.
   def parse_inline_footnote
-    @src.scan(INLINE_FOOTNOTE_START)
-    el = Element.new(:inline_footnote)
-    parse_spans(el, INLINE_FOOTNOTE_END)
+    footnote_level = @src[2]
+    @src.scan(LEMMA_START)
+    el = Element.new(:lemma)
+    parse_spans(el, LEMMA_END)
+    
+    fn = Element.new(:inline_footnote)
+    fn.options[:footnote_level] = footnote_level
+
+    @src.scan_until(/\(/)
+    parse_spans(fn, INLINE_FOOTNOTE_END)
     @src.scan(INLINE_FOOTNOTE_END)
+    #el.children << fn
     @tree.children << el
+    @tree.children << fn
   end
   define_parser(:inline_footnote, INLINE_FOOTNOTE_START)
+
 
 end

@@ -56,17 +56,14 @@ module Kramdown
       end
 
       def convert_inline_footnote(el, opts)
-        "\\footnote{#{latex_link_target(el)}#{inner(el, opts)}}"
+        require "pry"
+        #binding.pry                
+        "{\\footnote#{el.options[:footnote_level]}{#{latex_link_target(el)}#{inner(el, opts)}}}"
       end
 
-      def convert_a(el, opts)
-        url = el.attr['href']
-        if url =~ /^([A-G]*)\^(.*)/
-          @data[:packages] << 'eledmac'
-          "\\edtext{#{inner(el, opts)}}{\\footnote#{$1}{#{$2}}}"
-        else
-          super
-        end
+      def convert_lemma(el, opts)
+        @data[:packages] << 'eledmac'
+        "\\edtext{#{inner(el, opts)}}"
       end
 
     end
