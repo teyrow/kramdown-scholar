@@ -1,6 +1,6 @@
 Feature: Pdf creation
   In order to use kramdown for langauge transcriptions
-  As a editor
+  As an editor
   I want write markdown and produce pdf output
 
 Scenario Outline: pdf generation
@@ -12,5 +12,4 @@ Scenario Outline: pdf generation
   Examples:
     | mdfilename          | template |
     | parallel            | article  |
-    | inline_footnote     | article  |
     | ed_text             | article  |

@@ -25,10 +25,10 @@ end
 
 When(/^I create pdf from the latexfile$/) do
   sh "xelatex --output-directory #{results} -halt-on-error #{@latex} " do |ok, res|
-    puts "<a href='#{@basename}.pdf'>pdf #{@basename}.pdf </a>"
-
+    %w(pdf log).each do |ext|
+      puts "<a href='#{@basename.ext(ext)}'>#{ext}</a>"
+    end
     ok.should be_true
-    #embed("#{}.png", "application/pdf", "SCREENSHOT")
   end 
 end
 
