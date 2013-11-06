@@ -56,9 +56,7 @@ module Kramdown
       end
 
       def convert_inline_footnote(el, opts)
-        require "pry"
-        #binding.pry                
-        "{\\footnote#{el.options[:footnote_level]}{#{latex_link_target(el)}#{inner(el, opts)}}}"
+        "{\\#{el.options[:footnote_level]}footnote{#{latex_link_target(el)}#{inner(el, opts)}}}"
       end
 
       def convert_lemma(el, opts)

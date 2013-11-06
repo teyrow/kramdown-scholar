@@ -29,10 +29,15 @@ describe Kramdown::Parser::KramdownScholar do
     context "when parsing #{fixture}.md" do
     
       it "converts to valid latex" do
-        doc = ::Kramdown::Document.new(File.read(f), :input => 'KramdownScholar')
+        opts = {:input => 'KramdownScholar'}
+        optfile = fixture.ext('yml')
+        opts.merge!(YAML::load_file(optfile)) if File.exists?(optfile)
+        doc = ::Kramdown::Document.new(File.read(f), opts)
         expected = File.read(File.join(fixtures_path, "#{fixture}.tex"))
         #puts doc.to_latex; exit(0)
-        doc.to_latex_scholar.should eql(expected)
+        res = doc.to_latex_scholar
+        p doc.warnings if doc.warnings.any?
+        res.should eql(expected)
       end
     
     end

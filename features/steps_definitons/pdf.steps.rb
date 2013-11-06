@@ -11,11 +11,11 @@ Given(/^I have markdownfile "(.*?)"$/) do |basename|
 end
 
 When(/^I create "(.*?)" from template "(.*?)"$/) do |outputformat, template|
-  @doc = Kramdown::Document.new(
-    File.read(@infile), 
-    :input => 'KramdownScholar',
-    :template => "data/kramdown/#{template}"
-  )
+  opts ={:input => 'KramdownScholar', :template => "data/kramdown/#{template}"}  #TODO, share with spec
+  optsfile = @infile.ext('yml')
+  opts.merge!(YAML::load_file(optsfile)) if File.exists?(optsfile)
+  @doc = Kramdown::Document.new(File.read(@infile),opts )
+
   @latex = File.join(results, "#{@basename}.tex")
   File.open(@latex, "w") do |file| 
     file.puts @doc.instance_eval("to_#{outputformat}")
@@ -24,7 +24,7 @@ When(/^I create "(.*?)" from template "(.*?)"$/) do |outputformat, template|
 end
 
 When(/^I create pdf from the latexfile$/) do
-  sh "xelatex --output-directory #{results} -halt-on-error #{@latex} " do |ok, res|
+  sh "latexmk -cd -silent -xelatex #{@latex} " do |ok, res|
     %w(pdf log).each do |ext|
       puts "<a href='#{@basename.ext(ext)}'>#{ext}</a>"
     end

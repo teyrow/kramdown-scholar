@@ -19,17 +19,5 @@
 require 'kramdown-scholar/version'
 
 require 'kramdown'
-
-module Kramdown
-
-  # Monkey-patch Element class to include :gist as a block-level element
-  # @private
-  class Element
-    # Register :gist as a block-level element
-    CATEGORY[:pages] = :block
-  end
-
-end
-
 require 'kramdown-scholar/parser'
 require 'kramdown-scholar/converter'

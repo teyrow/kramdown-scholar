@@ -1,0 +1,8 @@
+---
+:latex_headers:
+- chapter
+- section
+- subsection
+- subsubsection
+- paragraph
+- subparagraph

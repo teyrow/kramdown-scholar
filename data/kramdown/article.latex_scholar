@@ -1,4 +1,4 @@
-\documentclass[12pt|draft]{article}
+\documentclass[12pt,a4paper]{book}
 
 
 <% if RUBY_VERSION >= '1.9' %>
@@ -12,7 +12,7 @@
 \usepackage{hyperref}
 \usepackage{fontspec,xunicode}
 \usepackage[english]{babel}
-\setmainfont{DejaVu Serif}
+%\setmainfont{DejaVu Serif}
 
 <% @converter.data[:packages].each {|pkg| %>\usepackage{<%= pkg %>}
 <% } %>
@@ -27,6 +27,9 @@
 <% end %>
 
 \hypersetup{colorlinks=false,urlcolor=blue}
+%\setlength{\parindent}{0pt}
+%\setlength{\parskip}{6pt plus 2pt minus 1pt}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
 
 \title{This is the title: it contains a colon}
 \author{Author One}

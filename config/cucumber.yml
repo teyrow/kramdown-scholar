@@ -1,4 +1,4 @@
 # config/cucumber.yml
 ##YAML Template
 ---
-default: --format html --out=features/results/report.html
+default: --format html --out=features/results/index.html
