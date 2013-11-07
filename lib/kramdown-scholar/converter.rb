@@ -64,6 +64,22 @@ module Kramdown
         "\\edtext{#{inner(el, opts)}}"
       end
 
+      def convert_citation(el, opts)
+        @data[:packages] << 'natbib'        
+        # if el.options[:parentheses] 
+          
+        # end 
+        res = el.value.map do |c|
+          "\\citealp[#{c[:prefix]}][#{c[:location]}]{#{c[:id]}}#{c[:suffix]}"
+        end.join(', ')
+        "\\citetext{#{res}}"
+        ##  \citetext{see \citealp[][chap 2]{Fis00a}, or even better \citealp[][pp. 20-21]{Meskin2007}}
+
+        # cmd << "[#{op[:prefix]}]" 
+        # cmd << "[#{op[:location]}#{{op[:]}}]"
+        # cmd << "[#{op[:suffix]}]" if op[:suffix]
+        # cmd 
+      end
     end
 
   end

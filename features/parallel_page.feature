@@ -13,4 +13,5 @@ Scenario Outline: pdf generation
     | mdfilename          | template |
     | parallel            | article  |
     | ed_text             | article  |
-    | cap1                | article  |
+    | _cap1                | article  |
+    | citations           | article  |

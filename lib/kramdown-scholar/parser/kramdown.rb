@@ -7,7 +7,7 @@ class Kramdown::Parser::KramdownScholar < Kramdown::Parser::Kramdown
   def initialize(source, options)
    super
    @block_parsers.unshift(:pages)
-   @span_parsers.unshift(:inline_footnote)
+   @span_parsers.unshift(:inline_footnote, :cite_parenthes)
   end
 
   PAGES_START = /^#{OPT_SPACE}PAGES: ?/

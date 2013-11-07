@@ -18,5 +18,6 @@
 
 # Kramdown parser
 require 'kramdown-scholar/parser/kramdown'
+require 'kramdown-scholar/parser/citation'
 # HTML parser
 #require 'kramdown-scholar/parser/html'

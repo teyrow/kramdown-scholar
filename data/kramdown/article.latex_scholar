@@ -1,3 +1,4 @@
+%!TEX program = xelatex
 \documentclass[12pt,a4paper]{book}
 
 
@@ -42,4 +43,6 @@
 
 <%= body %>
 
+\bibliographystyle{abbrvnat}
+\bibliography{00}
 \end{document}

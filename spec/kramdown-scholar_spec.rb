@@ -23,9 +23,10 @@ require 'rake'
 describe Kramdown::Parser::KramdownScholar do
   fixtures_path = File.expand_path("../fixtures", __FILE__)
   FileList.new("#{fixtures_path}/*.md").each do |f|
-    text = File.read(f)
     fixture = File.basename(f, '.md')
-    
+    next if fixture.start_with? '_'
+
+    text = File.read(f)
     context "when parsing #{fixture}.md" do
     
       it "converts to valid latex" do
