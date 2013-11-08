@@ -29,9 +29,8 @@ class Kramdown::Parser::KramdownScholar < Kramdown::Parser::Kramdown
       el.value[:location].value = @src.scan(/([,.A-Za-z ]+[0-9-]+)+/)
 
       el.value[:suffix] = Element.new(:suffix)
-      parse_spans(el.value[:suffix], /(;|\])/)
-      p el.value[:suffix]
-      
+      parse_spans(el.value[:suffix], /(;|\])/)      
+    
       @src.pos += @src.matched_size
 
       cites.children << el
@@ -48,7 +47,7 @@ class Kramdown::Parser::KramdownScholar < Kramdown::Parser::Kramdown
   def parse_cite_textual
     @src.pos += @src.matched_size
     
-    if @src.pre_match[-1] =~ /[A-Z0-9._%+-]/i
+    if @src.pre_match[-1..-1] =~ /[A-Z0-9._%+-]/i
       el = Element.new :text
       el.value = '@' << @src[1]
     else 
