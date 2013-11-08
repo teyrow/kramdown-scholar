@@ -69,8 +69,11 @@ module Kramdown
         # if el.options[:parentheses] 
           
         # end 
-        res = el.value.map do |c|
-          "\\citealp[#{c[:prefix]}][#{c[:location]}]{#{c[:id]}}#{c[:suffix]}"
+        res = el.children.map do |child|
+          c = child.value
+          prefix, id, suffix = [:prefix, :id, :suffix].map { |k| inner(c[k], opts) }
+          location = c[:location].value
+          "\\citealp[#{prefix}][#{location}]{#{id}}#{suffix}"
         end.join(', ')
         "\\citetext{#{res}}"
         ##  \citetext{see \citealp[][chap 2]{Fis00a}, or even better \citealp[][pp. 20-21]{Meskin2007}}
