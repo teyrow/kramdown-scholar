@@ -83,7 +83,13 @@ module Kramdown
         # cmd << "[#{op[:suffix]}]" if op[:suffix]
         # cmd 
       end
+      
+      def convert_cite_textual(el, opts)
+        "\\citet{#{el.value}}"
+      end
+
     end
+
 
   end
 end

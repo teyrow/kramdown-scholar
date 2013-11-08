@@ -43,9 +43,20 @@ class Kramdown::Parser::KramdownScholar < Kramdown::Parser::Kramdown
   end
   define_parser(:cite_parenthes, CITE_PARENTHES)
 
-  def parse_citation
+  CITE_TEXTUAL = /@([^"@',\#}{~%;\] ]+)/
 
+  def parse_cite_textual
+    @src.pos += @src.matched_size
+    
+    if @src.pre_match[-1] =~ /[A-Z0-9._%+-]/i
+      el = Element.new :text
+      el.value = '@' << @src[1]
+    else 
+      el = Element.new :cite_textual
+      el.value = @src[1]
+    end 
+    @tree.children << el
   end
-
+  define_parser(:cite_textual, CITE_TEXTUAL)
 
 end
