@@ -1,21 +1,5 @@
 # encoding: utf-8
 #
-# converter.rb - monkey-patches for Kramdown converters
-# Copyright (C) 2012 Matteo Panella <morpheus@level28.org>
-#
-# This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation, either version 3 of the License, or
-# (at your option) any later version.
-#
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
-#
-# You should have received a copy of the GNU General Public License
-# along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
 module Kramdown
   module Converter
 
@@ -69,23 +53,21 @@ module Kramdown
         # if el.options[:parentheses] 
           
         # end 
+
         res = el.children.map do |child|
-          c = child.value
-          prefix, id, suffix = [:prefix, :id, :suffix].map { |k| inner(c[k], opts) }
-          location = c[:location].value
-          "\\citealp[#{prefix}][#{location}]{#{id}}#{suffix}"
+          #c = child.value
+          #prefix, id, suffix = [:prefix, :id, :suffix].map { |k| inner(c[k], opts) }
+          #location = c[:location].value
+          #"\\citealp[#{prefix}][#{location}]{#{id}}#{suffix}"
+          "#{inner(child, opts)}"
         end.join(', ')
         "\\citetext{#{res}}"
         ##  \citetext{see \citealp[][chap 2]{Fis00a}, or even better \citealp[][pp. 20-21]{Meskin2007}}
-
-        # cmd << "[#{op[:prefix]}]" 
-        # cmd << "[#{op[:location]}#{{op[:]}}]"
-        # cmd << "[#{op[:suffix]}]" if op[:suffix]
-        # cmd 
       end
       
       def convert_cite_textual(el, opts)
-        "\\citet{#{el.value}}"
+        cmd = el.options[:supress_author] ? '\citeyear' : '\citet'
+        cmd <<   "{#{el.value}}"
       end
 
     end

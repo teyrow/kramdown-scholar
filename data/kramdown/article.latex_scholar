@@ -44,5 +44,5 @@
 <%= body %>
 
 \bibliographystyle{abbrvnat}
-\bibliography{00}
+\bibliography{00,items}
 \end{document}

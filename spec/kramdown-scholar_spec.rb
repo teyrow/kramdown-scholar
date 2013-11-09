@@ -38,7 +38,7 @@ describe Kramdown::Parser::KramdownScholar do
         #puts doc.to_latex; exit(0)
         res = doc.to_latex_scholar
         p doc.warnings if doc.warnings.any?
-        res.should eql(expected)
+        res.should eql(expected), res
       end
     
     end

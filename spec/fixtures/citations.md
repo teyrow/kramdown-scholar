@@ -1,9 +1,43 @@
-Blah blah [see @Fis00a, pp. 33-35; also @Meskin2007, ch. 1].
+Pandoc with citeproc-hs
+=======================
 
-Blah blah [@Fis00a, pp. 33-35, 38-39 and *passim*].
+-   [@nonexistent]
 
-Blah blah [@Meskin2007; @Fis00a]
+-   @nonexistent
 
-Inline @Meskin2007 mentions something, and @Fis00a is also good reading
+-   @item1 says blah.
 
-This is plain text me@domain.com, right? And this is email <me@domain.com>
+-   @item1 [p. 30] says blah.
+
+-   @item1 [p. 30, with suffix] says blah.
+
+-   @item1 [-@item2 p. 30; see also @пункт3] says blah.
+
+-   In a note.[^1]
+
+-   A citation group [see @item1 chap. 3; also @пункт3 p. 34-35].
+
+-   Another one [see @item1 p. 34-35].
+
+-   And another one in a note.[^2]
+
+-   Citation with a suffix and locator [@item1 pp. 33, 35-37, and nowhere else].
+
+-   Citation with suffix only [@item1 and nowhere else].
+
+-   Now some modifiers.[^3]
+
+-   With some markup [*see* @item1 p. **32**].
+
+-   And -@item1 [p. 30] says blah.
+
+-   Some citations [see @item1 chap. 3; @пункт3; @item2].
+
+References
+==========
+
+[^1]: @пункт3 [p. 12] and a citation without locators [@пункт3].
+
+[^2]: Some citations [see @item1 chap. 3; @пункт3; @item2].
+
+[^3]: Like a citation without author: [-@item1], and now Doe with a locator [-@item2 p. 44].

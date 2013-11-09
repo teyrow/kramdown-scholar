@@ -58,3 +58,5 @@ simple [the *bold text*]^B(footnote-b **with** space)
 simple [more text]^A(second footer)
 
 simple [more text]^B(second footer-b)
+
+this is ignored [ignoring this]

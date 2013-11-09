@@ -1,10 +1,23 @@
-Blah blah \citetext{\citealp[see][pp. 33-35]{Fis00a}, \citealp[also][ch. 1]{Meskin2007}}.
+\section{Pandoc with citeproc-hs}\hypertarget{pandoc-with-citeproc-hs}{}\label{pandoc-with-citeproc-hs}
 
-Blah blah \citetext{\citealp[][pp. 33-35, 38-39]{Fis00a} and \emph{passim}}.
+\begin{itemize}
+\item \citetext{\citet{nonexistent}}
+\item \citet{nonexistent}
+\item \citet{item1} says blah.
+\item \citet{item1} [p. 30] says blah.
+\item \citet{item1} [p. 30, with suffix] says blah.
+\item \citet{item1} \citetext{\citeyear{item2} p. 30,  see also \citet{пункт3}}
+\item In a note.\footnote{\citet{пункт3} [p. 12] and a citation without locators \citetext{\citet{пункт3}}}
+\item A citation group \citetext{see \citet{item1} chap. 3,  also \citet{пункт3} p. 34-35}
+\item Another one \citetext{see \citet{item1} p. 34-35}
+\item And another one in a note.\footnote{Some citations \citetext{see \citet{item1} chap. 3,  \citet{пункт3},  \citet{item2}}}
+\item Citation with a suffix and locator \citetext{\citet{item1} pp. 33, 35-37, and nowhere else}
+\item Citation with suffix only \citetext{\citet{item1} and nowhere else}
+\item Now some modifiers.\footnote{Like a citation without author: \citetext{\citeyear{item1}}}
+\item With some markup \citetext{\emph{see} \citet{item1} p. \textbf{32}}
+\item And \citeyear{item1} [p. 30] says blah.
+\item Some citations \citetext{see \citet{item1} chap. 3,  \citet{пункт3},  \citet{item2}}
+\end{itemize}
 
-Blah blah \citetext{\citealp[][]{Meskin2007}, \citealp[][]{Fis00a}}
-
-Inline \citet{Meskin2007} mentions something, and \citet{Fis00a} is also good reading
-
-This is plain text me@domain.com, right? And this is email \href{mailto:me@domain.com}{me@domain.com}
+\section{References}\hypertarget{references}{}\label{references}
 
