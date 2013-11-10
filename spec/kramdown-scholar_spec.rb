@@ -19,7 +19,12 @@
 require 'kramdown-scholar'
 require 'rake'
 
-
+begin
+  require 'pry'
+rescue LoadError
+  puts "pry is not required"
+  puts "Do not pry..."
+end
 describe Kramdown::Parser::KramdownScholar do
   fixtures_path = File.expand_path("../fixtures", __FILE__)
   FileList.new("#{fixtures_path}/*.md").each do |f|

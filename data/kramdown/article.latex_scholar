@@ -1,5 +1,5 @@
 %!TEX program = xelatex
-\documentclass[12pt,a4paper]{book}
+\documentclass[a4paper]{book}
 
 
 <% if RUBY_VERSION >= '1.9' %>

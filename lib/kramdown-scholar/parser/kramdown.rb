@@ -7,7 +7,7 @@ class Kramdown::Parser::KramdownScholar < Kramdown::Parser::Kramdown
   def initialize(source, options)
    super
    @block_parsers.unshift(:pages)
-   @span_parsers.unshift(:inline_footnote, :cite_parenthes, :cite_textual, :cite_location)
+   @span_parsers.unshift(:inline_footnote, :sidenote, :cite_parenthes, :cite_textual, :cite_location)
   end
 
   PAGES_START = /^#{OPT_SPACE}PAGES: ?/
@@ -75,5 +75,14 @@ class Kramdown::Parser::KramdownScholar < Kramdown::Parser::Kramdown
   end
   define_parser(:inline_footnote, INLINE_FOOTNOTE_START)
 
+  SIDENOTE_START = /\[>.*?\]/
+  SIDENOTE_END   = /\]/
+  def parse_sidenote
+    @src.scan(/\[>/)
+    parse_spans(el = Element.new(:sidenote), SIDENOTE_END)
+    @src.scan(SIDENOTE_END)
+    @tree.children << el
+  end
 
+  define_parser(:sidenote, SIDENOTE_START)
 end

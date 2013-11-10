@@ -95,6 +95,11 @@ module Kramdown
         end
       end
 
+      def convert_sidenote(el, opts)
+        @data[:packages] << 'eledmac'
+        "\\ledsidenote{#{inner(el, opts)}}"
+      end
+
     end
 
 
