@@ -7,7 +7,7 @@ class Kramdown::Parser::KramdownScholar < Kramdown::Parser::Kramdown
   def initialize(source, options)
    super
    @block_parsers.unshift(:pages)
-   @span_parsers.unshift(:inline_footnote, :cite_parenthes, :cite_textual)
+   @span_parsers.unshift(:inline_footnote, :cite_parenthes, :cite_textual, :cite_location)
   end
 
   PAGES_START = /^#{OPT_SPACE}PAGES: ?/
@@ -33,13 +33,18 @@ class Kramdown::Parser::KramdownScholar < Kramdown::Parser::Kramdown
     right= new_block_el(:parallel_side)
     right.options['side']= 'Right'
     # TODO assert same length in even and odd. 
-    el.children.each_with_index do |e, i| 
+    i=0
+    while e=el.children.shift
       para = new_block_el(:pstart)
       para.children << e
+      if e.type == :header # hangin indent fix
+        e.attr['class'] = 'no_toc' if i.odd?
+        para.children << el.children.shift 
+      end
       (i.even? ? left : right ).children << para
-    end
+      i += 1
+    end 
     el.children = [left, right]
-    #el.children << right
     @tree.children << el
     true
   end

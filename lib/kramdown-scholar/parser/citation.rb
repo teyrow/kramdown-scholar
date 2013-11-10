@@ -9,10 +9,10 @@ class Kramdown::Parser::KramdownScholar < Kramdown::Parser::Kramdown
   def parse_cite_parenthes
     @src.scan(/\[/) #eat the bracket
     
-    cites = Element.new(:citation)    
+    cites = Element.new(:citation)
     while parse_spans(el = Element.new(:text), /(;|\])/)
       cites.children << el
-      @src.pos += 1 #if @src[0] == ';'
+      @src.pos += 1
     end
     
     @tree.children << cites
@@ -35,5 +35,14 @@ class Kramdown::Parser::KramdownScholar < Kramdown::Parser::Kramdown
     @tree.children << el
   end
   define_parser(:cite_textual, CITE_TEXTUAL)
+
+  CITE_LOCATION = /\s?\w+\.(,? +[0-9-]+)+/
+  
+  def parse_cite_location
+    @src.pos += @src.matched_size
+    add_text(@src[0], @tree, :cite_location)
+  end
+
+  define_parser(:cite_location, CITE_LOCATION)
 
 end

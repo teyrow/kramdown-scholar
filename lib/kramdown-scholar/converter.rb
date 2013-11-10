@@ -30,9 +30,12 @@ module Kramdown
 
       def convert_parallel_side(el, opts)
         # TODO assert opts['side'] is Right or Left
-        env = "#{el.options['side']}side"
-        numbering = "\\beginnumbering\n#{inner(el, opts)}\\endnumbering\n"
-        latex_environment(env, el, numbering )
+        l_r = el.options['side']
+        env = "#{l_r}side"
+        content = inner(el, opts)
+        res = "\\beginnumbering\n#{content}\\endnumbering\n"
+        res = ("\\ledsectnotoc\n" << res) if l_r == 'Right'
+        latex_environment(env, el, res )
       end
 
       def convert_pstart(el, opts)
@@ -50,16 +53,23 @@ module Kramdown
 
       def convert_citation(el, opts)
         @data[:packages] << 'natbib'        
-        # if el.options[:parentheses] 
-          
-        # end 
 
         res = el.children.map do |child|
-          #c = child.value
-          #prefix, id, suffix = [:prefix, :id, :suffix].map { |k| inner(c[k], opts) }
-          #location = c[:location].value
-          #"\\citealp[#{prefix}][#{location}]{#{id}}#{suffix}"
-          "#{inner(child, opts)}"
+          els = child.children
+          prefix = Element.new(:text)
+          #suffix = Element.new(:text)
+
+          pos = els.find_index{|e| e.type == :cite_textual}
+          
+          prefix.children = els.shift(pos)
+          key = els.shift.value
+
+          location = nil
+          
+          els.reject! do |e|
+            location = e.value if e.type == :cite_location
+          end
+          "\\citealp[#{inner(prefix, opts).strip}][#{location.to_s.strip}]{#{key}}#{inner(child, opts)}"
         end.join(', ')
         "\\citetext{#{res}}"
         ##  \citetext{see \citealp[][chap 2]{Fis00a}, or even better \citealp[][pp. 20-21]{Meskin2007}}
@@ -68,6 +78,10 @@ module Kramdown
       def convert_cite_textual(el, opts)
         cmd = el.options[:supress_author] ? '\citeyear' : '\citet'
         cmd <<   "{#{el.value}}"
+      end
+
+      def convert_cite_location(el, opts)
+        el.value.strip
       end
 
     end

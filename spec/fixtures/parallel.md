@@ -2,13 +2,11 @@ PAGES:
 
 # Left column heading
 
-# Right column heading
-
-
-more random *apa*
+More random *apa*
 ending pages
 
-right text lorem with _italic_
+# Right column heading
+Right text lorem with _italic_
 
 
 

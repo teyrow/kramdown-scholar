@@ -1,22 +1,22 @@
 \section{Pandoc with citeproc-hs}\hypertarget{pandoc-with-citeproc-hs}{}\label{pandoc-with-citeproc-hs}
 
 \begin{itemize}
-\item \citetext{\citet{nonexistent}}
+\item \citetext{\citealp[][]{nonexistent}}
 \item \citet{nonexistent}
 \item \citet{item1} says blah.
 \item \citet{item1} [p. 30] says blah.
 \item \citet{item1} [p. 30, with suffix] says blah.
-\item \citet{item1} \citetext{\citeyear{item2} p. 30,  see also \citet{пункт3}}
-\item In a note.\footnote{\citet{пункт3} [p. 12] and a citation without locators \citetext{\citet{пункт3}}}
-\item A citation group \citetext{see \citet{item1} chap. 3,  also \citet{пункт3} p. 34-35}
-\item Another one \citetext{see \citet{item1} p. 34-35}
-\item And another one in a note.\footnote{Some citations \citetext{see \citet{item1} chap. 3,  \citet{пункт3},  \citet{item2}}}
-\item Citation with a suffix and locator \citetext{\citet{item1} pp. 33, 35-37, and nowhere else}
-\item Citation with suffix only \citetext{\citet{item1} and nowhere else}
-\item Now some modifiers.\footnote{Like a citation without author: \citetext{\citeyear{item1}}}
-\item With some markup \citetext{\emph{see} \citet{item1} p. \textbf{32}}
+\item \citet{item1} \citetext{\citealp[][p. 30]{item2}, \citealp[see also][]{пункт3}}
+\item In a note.\footnote{\citet{пункт3} [p. 12] and a citation without locators \citetext{\citealp[][]{пункт3}}}
+\item A citation group \citetext{\citealp[see][chap. 3]{item1}, \citealp[also][p. 34-35]{пункт3}}
+\item Another one \citetext{\citealp[see][p. 34-35]{item1}}
+\item And another one in a note.\footnote{Some citations \citetext{\citealp[see][chap. 3]{item1}, \citealp[][]{пункт3}, \citealp[][]{item2}}}
+\item Citation with a suffix and locator \citetext{\citealp[][pp. 33, 35-37]{item1}, and nowhere else}
+\item Citation with suffix only \citetext{\citealp[][]{item1} and nowhere else}
+\item Now some modifiers.\footnote{Like a citation without author: \citetext{\citealp[][]{item1}}}
+\item With some markup \citetext{\citealp[\emph{see}][]{item1} p. \textbf{32}}
 \item And \citeyear{item1} [p. 30] says blah.
-\item Some citations \citetext{see \citet{item1} chap. 3,  \citet{пункт3},  \citet{item2}}
+\item Some citations \citetext{\citealp[see][chap. 3]{item1}, \citealp[][]{пункт3}, \citealp[][]{item2}}
 \end{itemize}
 
 \section{References}\hypertarget{references}{}\label{references}
