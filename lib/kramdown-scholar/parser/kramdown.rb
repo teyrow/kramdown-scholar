@@ -38,7 +38,7 @@ class Kramdown::Parser::KramdownScholar < Kramdown::Parser::Kramdown
       para = new_block_el(:pstart)
       para.children << e
       if e.type == :header # hangin indent fix
-        e.attr['class'] = 'no_toc' if i.odd?
+        e.options[:unnumbered] = true
         para.children << el.children.shift 
       end
       (i.even? ? left : right ).children << para

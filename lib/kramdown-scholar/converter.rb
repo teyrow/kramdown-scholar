@@ -84,6 +84,17 @@ module Kramdown
         el.value.strip
       end
 
+      # subclassing and patching header to allow unnumbered headers in toc
+      def convert_header(el, opts)
+        type = @options[:latex_headers][output_header_level(el.options[:level]) - 1]
+        if el.options[:unnumbered]
+          el.attr['class'] = 'no_toc'
+          "#{super.strip}\n\\addcontentsline{toc}{#{type}}{#{inner(el, opts)}}\n\n"
+        else 
+          super
+        end
+      end
+
     end
 
 

@@ -1,5 +1,8 @@
 require 'kramdown-scholar'
 require 'rake'
+
+include  Rake::DSL
+
 def results
   File.join 'features', 'results'
 end
