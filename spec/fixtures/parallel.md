@@ -1,4 +1,4 @@
-PAGES:
+{::pages}
 
 # Left column heading
 
@@ -10,6 +10,6 @@ Right text lorem with _italic_
 
 
 
----
+{:/pages}
 
 more text

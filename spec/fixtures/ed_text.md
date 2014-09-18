@@ -49,7 +49,8 @@ bad [URL](no
 
 simple [the *bold text*]^(footnote **with** space)
 
-simple [more text]^(second footer)
+simple [more
+text]^(second footer)
 
 simple [the *bold text*]^A(footnote **with** space)
 
@@ -57,6 +58,6 @@ simple [the *bold text*]^B(footnote-b **with** space)
 
 simple [more text]^A(second footer)
 
-simple [more text]^B(second footer-b)
-
 this is ignored [ignoring this]
+
+simple [loong lemma to abbr^long lemma]^B(second footer)
