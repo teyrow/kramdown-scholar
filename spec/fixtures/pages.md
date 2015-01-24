@@ -1,8 +1,8 @@
-{::pages}
+{::scholar parallel='pages'}
 
 more random *apa*
 ending pages
 
-{:/pages}
+{:/scholar}
 
 more text

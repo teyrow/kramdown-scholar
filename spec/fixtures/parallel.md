@@ -1,4 +1,4 @@
-{::pages}
+{::scholar}
 
 # Left column heading
 
@@ -10,6 +10,6 @@ Right text lorem with _italic_
 
 
 
-{:/pages}
+{:/scholar}
 
 more text

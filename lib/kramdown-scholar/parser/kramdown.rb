@@ -6,9 +6,10 @@ class Kramdown::Parser::KramdownScholar < Kramdown::Parser::Kramdown
 
   def initialize(source, options)
    super
-   @block_parsers.unshift(:pages)
+   @block_parsers.unshift(:pages)   
    @span_parsers.unshift(:inline_footnote, :sidenote, :cite_parenthes, :cite_textual, :cite_location)
   end
+
 
   PAGES_START = /^#{OPT_SPACE}{::pages} ?/
   PAGES_END = /^#{OPT_SPACE}{:\/pages} ?/
@@ -24,29 +25,6 @@ class Kramdown::Parser::KramdownScholar < Kramdown::Parser::Kramdown
     result.gsub!(PAGES_START, '')
     result.gsub!(PAGES_END, '')
 
-    el = new_block_el(:pages)
-    parse_blocks(el, result)
-    # not interested in the blanks
-    el.children.reject!{|e| e.type == :blank}
-    left = new_block_el(:parallel_side)
-    left.options['side'] = 'Left'
-    right= new_block_el(:parallel_side)
-    right.options['side']= 'Right'
-    # TODO assert same length in even and odd.
-    i=0
-    while e=el.children.shift
-      para = new_block_el(:pstart)
-      para.children << e
-      if e.type == :header # hangin indent fix
-        e.options[:unnumbered] = true
-        para.children << el.children.shift
-      end
-      (i.even? ? left : right ).children << para
-      i += 1
-    end
-    el.children = [left, right]
-    @tree.children << el
-    true
   end
   define_parser(:pages, PAGES_START)
 
@@ -93,4 +71,36 @@ class Kramdown::Parser::KramdownScholar < Kramdown::Parser::Kramdown
   end
 
   define_parser(:sidenote, SIDENOTE_START)
+
+  def handle_extension(name, opts, body, type)
+    case name
+     when 'scholar'
+      el = new_block_el(:pages)
+      parse_blocks(el, body)
+      # not interested in the blanks
+      el.children.reject!{|e| e.type == :blank}
+      left = new_block_el(:parallel_side)
+      left.options['side'] = 'Left'
+      right= new_block_el(:parallel_side)
+      right.options['side']= 'Right'
+      # TODO assert same length in even and odd.
+      i=0
+      while e=el.children.shift
+        para = new_block_el(:pstart)
+        para.children << e
+        if e.type == :header # hangin indent fix
+          e.options[:unnumbered] = true
+          para.children << el.children.shift
+        end
+        (i.even? ? left : right ).children << para
+        i += 1
+      end
+      el.children = [left, right]
+      @tree.children << el
+      true
+     else 
+        super
+     end 
+   end
+
 end
