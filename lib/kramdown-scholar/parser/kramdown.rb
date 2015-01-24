@@ -6,28 +6,8 @@ class Kramdown::Parser::KramdownScholar < Kramdown::Parser::Kramdown
 
   def initialize(source, options)
    super
-   @block_parsers.unshift(:pages)   
    @span_parsers.unshift(:inline_footnote, :sidenote, :cite_parenthes, :cite_textual, :cite_location)
   end
-
-
-  PAGES_START = /^#{OPT_SPACE}{::pages} ?/
-  PAGES_END = /^#{OPT_SPACE}{:\/pages} ?/
-  # Parse the pages at the current location.
-  def parse_pages
-    result = @src.scan_until(PAGES_END)
-
-    unless result
-      warning('Warning: {::pages} start found but missing ending.')
-      return false
-    end
-
-    result.gsub!(PAGES_START, '')
-    result.gsub!(PAGES_END, '')
-
-  end
-  define_parser(:pages, PAGES_START)
-
 
   INLINE_FOOTNOTE_START = /\[(.*?)\]\^([A-G]?)\(/m
   LEMMA_START           = /\[/
