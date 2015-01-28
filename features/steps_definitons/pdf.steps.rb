@@ -27,7 +27,7 @@ When(/^I create "(.*?)" from template "(.*?)"$/) do |outputformat, template|
 end
 
 When(/^I create pdf from the latexfile$/) do
-  sh "latexmk -cd -silent -xelatex #{@latex} " do |ok, res|
+  sh "latexmk -cd -silent -xelatex  #{@latex} " do |ok, res|
     %w(pdf log).each do |ext|
       puts "<a href='#{@basename.ext(ext)}'>#{ext}</a>"
     end

@@ -11,7 +11,7 @@ Scenario Outline: pdf generation
 
   Examples:
     | mdfilename          | template |
-    | parallel            | article  |
-    | ed_text             | article  |
-    | _cap1                | article  |
-    | citations           | article  |
+    | parallel            | article.latex_scholar  |
+    | ed_text             | article.latex_scholar  |
+    | citations           | article.latex_scholar  |
+    | scholar             | article.latex_scholar  |

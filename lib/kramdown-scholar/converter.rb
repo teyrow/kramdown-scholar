@@ -5,27 +5,43 @@ module Kramdown
 
     class Html
 
-      def convert_pages(el, indent)
-        "#{' '*indent}#{el.value}\n"
-      end
+      # def convert_pages(el, indent)
+      #   "#{' '*indent}#{el.value}\n"
+      # end
 
     end
 
     class Kramdown
 
-      def convert_pages(el, opts)
-        "*{{::pages}#{el.value}}\n"
-      end
+      # def convert_pages(el, opts)
+      #   "*{{::pages}#{el.value}}\n"
+      # end
 
     end
 
     class LatexScholar < Latex
 
+      def initialize(root, options)
+        super
+        @data[:endnotes] = Set.new
+      end
+
       def convert_pages(el, opts)
+        # TODO remove and use numbering
         @data[:packages] << 'eledmac' #Must be before eledpar
         @data[:packages] << 'eledpar'
 
         latex_environment('pages', el, inner(el, opts) ) <<   "\\Pages"
+      end
+
+      def convert_numbering(el, opts)
+        @data[:packages] << 'eledmac' #Must be before eledpar
+        @data[:packages] << 'eledpar' #? needed? 
+        s = "\\beginnumbering\n#{latex_link_target(el)}#{inner(el, opts)}"
+        @data[:endnotes].each do |l|
+          s << "\n\\newpage\\doendnotes{#{l}}"
+        end
+        s << "\\endnumbering\n"
       end
 
       def convert_parallel_side(el, opts)
@@ -44,14 +60,21 @@ module Kramdown
 
       def convert_inline_footnote(el, opts)
         letter = el.options[:footnote_level]
-        cmd = if letter == 'B'
-          "#{letter}footnote"
-        else
-          "footnote#{letter}"
-        end
-        lemma = if el.options[:lemma_short]
-          "\\lemma{#{inner(el.options[:lemma_short], options)}}"
+        if @data[:use_endnotes]
+          @data[:endnotes] << letter
+          cmd = "#{letter}endnote"
         else 
+          cmd = "#{letter}footnote"
+        end
+        #cmd = if letter == 'B' or true
+        #  "#{letter}endnote"
+        #else
+        #  "footnote#{letter}"
+        #end
+        lemma = if el.options[:lemma_short]
+          separator = @data[:use_endnotes] ? '\rbracket' : ''
+          "\\lemma{#{inner(el.options[:lemma_short], options)}#{separator}}"
+        else           
           ''
         end
         "{#{lemma}\\#{cmd}{#{latex_link_target(el)}#{inner(el, opts)}}}"
@@ -109,6 +132,11 @@ module Kramdown
       def convert_sidenote(el, opts)
         @data[:packages] << 'eledmac'
         "\\ledsidenote{#{inner(el, opts)}}"
+      end
+
+      def convert_scholar(el, opts)
+        @data[:use_endnotes] = true
+        inner(el, opts)
       end
 
     end

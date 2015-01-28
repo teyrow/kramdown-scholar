@@ -1,5 +1,5 @@
 %!TEX program = xelatex
-\documentclass[a4paper]{book}
+\documentclass[12pt|a4paper|draft]{book}
 
 
 <% if RUBY_VERSION >= '1.9' %>
@@ -15,6 +15,9 @@
 \usepackage[english]{babel}
 %\setmainfont{DejaVu Serif}
 
+
+
+
 <% @converter.data[:packages].each {|pkg| %>\usepackage{<%= pkg %>}
 <% } %>
 
@@ -27,6 +30,20 @@
 <%   end %>
 <% end %>
 
+%\usepackage[parapparatus]{eledmac}
+
+% endnote pagenumber:
+%\newcommand*{\printnpnum}[1]{p.#1) }
+\renewcommand*{\printnpnum}[1]{}
+
+% no hanging indent:
+\setlength{\parindent}{0pt}
+
+\Xendnotefontsize{\normalsize}
+%\renewcommand{\showlemma}[1]{\textbf{#1}}% or simply ...[1]{#1}
+
+%\lemmaseparator[A]{XX}
+
 \hypersetup{colorlinks=false,urlcolor=blue}
 %\setlength{\parindent}{0pt}
 %\setlength{\parskip}{6pt plus 2pt minus 1pt}
@@ -37,12 +54,12 @@
 \date{2013-10-23}
 
 \begin{document}
-\maketitle
+%\maketitle
 
-\tableofcontents
+%\tableofcontents
 
 <%= body %>
 
-\bibliographystyle{abbrvnat}
-\bibliography{00,items}
+%\bibliographystyle{abbrvnat}
+%\bibliography{00,items}
 \end{document}

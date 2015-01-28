@@ -29,6 +29,8 @@ class Kramdown::Parser::KramdownScholar < Kramdown::Parser::Kramdown
     fn.options[:footnote_level] = footnote_level
     if lemma_short.children.any?
       fn.options[:lemma_short]= lemma_short
+    else 
+      fn.options[:lemma_short]= el
     end
 
 
@@ -55,28 +57,51 @@ class Kramdown::Parser::KramdownScholar < Kramdown::Parser::Kramdown
   def handle_extension(name, opts, body, type)
     case name
      when 'scholar'
-      el = new_block_el(:pages)
-      parse_blocks(el, body)
-      # not interested in the blanks
-      el.children.reject!{|e| e.type == :blank}
-      left = new_block_el(:parallel_side)
-      left.options['side'] = 'Left'
-      right= new_block_el(:parallel_side)
-      right.options['side']= 'Right'
-      # TODO assert same length in even and odd.
-      i=0
-      while e=el.children.shift
-        para = new_block_el(:pstart)
-        para.children << e
-        if e.type == :header # hangin indent fix
-          e.options[:unnumbered] = true
-          para.children << el.children.shift
+      if para_type = opts['parallel']
+        el = new_block_el(:pages)
+        parse_blocks(el, body)
+        # not interested in the blanks
+        el.children.reject!{|e| e.type == :blank}
+        
+        left = new_block_el(:parallel_side)
+        left.options['side'] = 'Left'
+        right= new_block_el(:parallel_side)
+        right.options['side']= 'Right'
+        # TODO assert same length in even and odd.
+        i=0
+        while e=el.children.shift
+          para = new_block_el(:pstart)
+          para.children << e
+          if e.type == :header # hanging indent fix
+            e.options[:unnumbered] = true
+            para.children << el.children.shift
+          end
+          (i.even? ? left : right ).children << para
+          i += 1
         end
-        (i.even? ? left : right ).children << para
-        i += 1
+        el.children = [left, right]
+        @tree.children << el
+      else
+        el = new_block_el(:scholar)
+        parse_blocks(el, body)
+        el.children.reject!{|e| e.type == :blank}        
+        numbering = new_block_el(:numbering)
+        #binding.pry
+        el.children.each do |e|
+          if e.type == :header
+            e.options[:unnumbered] = true
+            numbering.children << e
+          else
+            para = new_block_el(:pstart)          
+            para.children << e
+            numbering.children << para
+          end
+        end
+        el = new_block_el(:scholar)
+        # TODO pass options to el-converter        
+        el.children << numbering
+        @tree.children << el
       end
-      el.children = [left, right]
-      @tree.children << el
       true
      else 
         super

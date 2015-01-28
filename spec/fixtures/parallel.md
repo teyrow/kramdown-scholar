@@ -1,4 +1,4 @@
-{::scholar}
+{::scholar parallel='pages'}
 
 # Left column heading
 
