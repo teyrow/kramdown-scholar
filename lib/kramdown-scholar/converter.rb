@@ -19,12 +19,12 @@ module Kramdown
 
     end
 
-    class LatexScholar < Latex
-
-      def initialize(root, options)
-        super
-        @data[:endnotes] = Set.new
-      end
+    class Latex
+      alias_method :convert_header_orig, :convert_header
+      # def initialize(root, options)
+      #   super
+      #   @data[:endnotes] = Set.new
+      # end
 
       def convert_pages(el, opts)
         # TODO remove and use numbering
@@ -123,9 +123,9 @@ module Kramdown
         type = @options[:latex_headers][output_header_level(el.options[:level]) - 1]
         if el.options[:unnumbered]
           el.attr['class'] = 'no_toc'
-          "#{super.strip}\n\\addcontentsline{toc}{#{type}}{#{inner(el, opts)}}\n\n"
+          "#{convert_header_orig(el, opts).strip}\n\\addcontentsline{toc}{#{type}}{#{inner(el, opts)}}\n\n"
         else
-          super
+          convert_header_orig(el, opts)
         end
       end
 

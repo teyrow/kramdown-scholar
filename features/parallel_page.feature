@@ -5,13 +5,13 @@ Feature: Pdf creation
 
 Scenario Outline: pdf generation
   Given I have markdownfile "<mdfilename>"
-  When I create "latex_scholar" from template "<template>" 
+  When I create "latex" from template "<template>" 
   And I create pdf from the latexfile
   Then the pdf should be created without error
 
   Examples:
     | mdfilename          | template |
-    | parallel            | article.latex_scholar  |
-    | ed_text             | article.latex_scholar  |
-    | citations           | article.latex_scholar  |
-    | scholar             | article.latex_scholar  |
+    | parallel            | article.latex  |
+    | ed_text             | article.latex  |
+    | citations           | article.latex  |
+    | scholar             | article.latex  |

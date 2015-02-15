@@ -40,7 +40,7 @@ describe Kramdown::Parser::KramdownScholar do
         opts.merge!(YAML::load_file(optfile)) if File.exists?(optfile)
         doc = ::Kramdown::Document.new(File.read(f), opts)
         expected = File.read(File.join(fixtures_path, "#{fixture}.tex"))
-        res = doc.to_latex_scholar.strip
+        res = doc.to_latex.strip
         #puts res
         p doc.warnings if doc.warnings.any?
         expect(res.strip).to eql(expected.strip), res.inspect
