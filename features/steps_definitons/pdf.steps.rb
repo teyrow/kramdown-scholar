@@ -31,7 +31,7 @@ When(/^I create pdf from the latexfile$/) do
     %w(pdf log).each do |ext|
       puts "<a href='#{@basename.ext(ext)}'>#{ext}</a>"
     end
-    ok.should be_true
+    expect(ok).to be_truthy
   end 
 end
 

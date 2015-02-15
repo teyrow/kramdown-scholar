@@ -43,7 +43,7 @@ describe Kramdown::Parser::KramdownScholar do
         res = doc.to_latex_scholar.strip
         #puts res
         p doc.warnings if doc.warnings.any?
-        res.strip.should eql(expected.strip), res.inspect
+        expect(res.strip).to eql(expected.strip), res.inspect
       end
 
     end
