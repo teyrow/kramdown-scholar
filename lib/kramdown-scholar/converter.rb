@@ -37,9 +37,9 @@ module Kramdown
       def convert_numbering(el, opts)
         @data[:packages] << 'eledmac' #Must be before eledpar
         @data[:packages] << 'eledpar' #? needed? 
-        s = "\\beginnumbering\n#{latex_link_target(el)}#{inner(el, opts)}"
+        s = "\\newpage\\beginnumbering\n#{latex_link_target(el)}#{inner(el, opts)}"
         @data[:endnotes].each do |l|
-          s << "\n\\newpage\\doendnotes{#{l}}"
+          s << "\n\\doendnotes{#{l}}"
         end
         s << "\\endnumbering\n"
       end
@@ -136,6 +136,7 @@ module Kramdown
 
       def convert_scholar(el, opts)
         @data[:use_endnotes] = true
+        @data[:endnotes] = Set.new
         inner(el, opts)
       end
 

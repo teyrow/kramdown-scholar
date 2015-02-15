@@ -54,7 +54,7 @@ class Kramdown::Parser::KramdownScholar < Kramdown::Parser::Kramdown
 
   define_parser(:sidenote, SIDENOTE_START)
 
-  def handle_extension(name, opts, body, type)
+  def handle_extension(name, opts, body, type, line_no = nil)
     case name
      when 'scholar'
       if para_type = opts['parallel']
@@ -97,6 +97,7 @@ class Kramdown::Parser::KramdownScholar < Kramdown::Parser::Kramdown
             numbering.children << para
           end
         end
+        numbering.children << new_block_el(:hr)
         el = new_block_el(:scholar)
         # TODO pass options to el-converter        
         el.children << numbering

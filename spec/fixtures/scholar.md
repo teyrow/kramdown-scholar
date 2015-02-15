@@ -14,6 +14,16 @@ Semiotics Blue Bottle irony, keffiyeh street art typewriter PBR-B deep v Odd Fut
 
 {:/scholar}
 
-more text
+{::scholar}
 
----
+# Cap 2
+
+The following paragraf with [critical text in aparatus A]^B(The footnote not too short) and end. And some more text to detect hanging indent? Should be nice to fix in template. 
+
+# A Third  in chapter two
+In this case there is no extra space after the heading and repeat above: The following paragraf with [the lemma in *bold* A]^B(A longer endnote to use in the end of the document just to check the hanging indent. I can __boogie__ and yes.) and end. And some more text to detect hanging indent? Should be nice to fix in template.  
+Using the hard line break above. 
+
+Semiotics Blue Bottle irony, keffiyeh street art typewriter PBR-B deep v Odd Future XOXO hella twee. Lomo keytar mixtape Odd Future Pitchfork plaid. Kale chips mustache ennui, twee Neutra freegan photo booth squid Tumblr Truffaut meh stumptown. Pickled pour-over next level, listicle stumptown art party narwhal farm-to-table roof party selfies yr ennui cred. Organic Carles tattooed forage ugh shabby chic. Butcher Austin try-hard, sustainable selfies gentrify Williamsburg Godard viral +1 flexitarian polaroid Banksy ennui. Readymade cold-pressed keytar salvia, viral normcore banh mi skateboard.
+
+{:/scholar}

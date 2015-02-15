@@ -40,6 +40,8 @@
 \setlength{\parindent}{0pt}
 
 \Xendnotefontsize{\normalsize}
+%\Xhangindent{20pt}
+%\bhookXendnote{\lbracket}
 %\renewcommand{\showlemma}[1]{\textbf{#1}}% or simply ...[1]{#1}
 
 %\lemmaseparator[A]{XX}

@@ -1,0 +1,10 @@
+{
+	"folders":
+	[
+		{
+			"follow_symlinks": true,
+			"path": ".",      
+      "file_exclude_patterns": ["features/results/*.1*", "*latexmk","*.toc" ,"*.aux", "*.log", "*.end", "*.fls", "*.sublime-workspace", "*.out"]
+		}
+	]
+}
