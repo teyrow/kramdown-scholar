@@ -33,17 +33,22 @@ describe Kramdown::Parser::KramdownScholar do
 
     text = File.read(f)
     context "when parsing #{fixture}.md" do
+      opts = {:input => 'KramdownScholar'}
+      optfile = fixture.ext('yml')
+      opts.merge!(YAML::load_file(optfile)) if File.exists?(optfile)
+      
+      doc = ::Kramdown::Document.new(File.read(f), opts)
+      p doc.warnings if doc.warnings.any?
 
-      it "converts to valid latex" do
-        opts = {:input => 'KramdownScholar'}
-        optfile = fixture.ext('yml')
-        opts.merge!(YAML::load_file(optfile)) if File.exists?(optfile)
-        doc = ::Kramdown::Document.new(File.read(f), opts)
-        expected = File.read(File.join(fixtures_path, "#{fixture}.tex"))
-        res = doc.to_latex.strip
-        #puts res
-        p doc.warnings if doc.warnings.any?
-        expect(res.strip).to eql(expected.strip), res.inspect
+      FileList.new("#{fixtures_path}/#{fixture}.*").exclude("**/*.md").each do |f|
+        format  = File.extname(f).delete('.')
+        it "converts correct to #{format}" do
+          expected = File.read(f)
+          
+          res = doc.send("to_#{format}".to_sym)
+          File.open("result/"  + File.basename(f), "w") { |file| file.puts res.strip }
+          expect(res.strip).to eql(expected.strip), res.inspect
+        end
       end
 
     end
