@@ -8,8 +8,66 @@ module Kramdown
       # def convert_pages(el, indent)
       #   "#{' '*indent}#{el.value}\n"
       # end
+      def convert_scholar(el, opts)
+         #TODO collect endnotes?
+         inner(el, opts)
+      end
+
+      def convert_numbering(el, opts)
+        inner(el, opts)
+      end
+
+      def convert_pstart(el, opts)
+        inner(el, opts)
+      end
+
+      def convert_inline_footnote(el, opts)
+        #binding.pry
+        #el.options[:name] = el.options.to_s
+        #e = el.children
+        #e.options[:name] = el.options.to_s
+        
+        #convert_footnote(el, opts)
+        #binding.pry
+        number = @footnote_counter
+        @footnote_counter += 1
+        repeat = ''
+        @footnotes << [number, el, number, 0]
+        inner(el, opts)
+        
+        "<span style='color:red' title='#{inner(el,opts)}'>#{inner(el.options[:lemma_short],opts)}</span>" + 
+        "<sup id=\"fnref:#{number}#{repeat}\"><a href=\"#fn:#{number}\" class=\"footnote\">#{number}</a></sup>"
+      end
+
+      def convert_lemma(el, opts)        
+        #"<span style='color:red'>#{inner(el, opts)}</span>"
+        ""
+      end
+
+      def convert_cite_location(el, opts)
+        inner(el, opts)
+      end
+      # overrides 
+      def convert_footnote(el, indent)
+        repeat = ''
+
+        #name = el.options[:lemma_short].children.first.value
+        #if (footnote = @footnotes_by_name[name])
+        #  number = footnote[2]
+        #  repeat = ":#{footnote[3] += 1}"
+        #else
+          number = @footnote_counter
+          name = number
+          @footnote_counter += 1
+          @footnotes << [name, el, number, 0]
+          @footnotes_by_name[name] = @footnotes.last
+        #end
+        "<sup id=\"fnref:#{name}#{repeat}\"><a href=\"#fn:#{name}\" class=\"footnote\">#{number}</a></sup>"
+      end    
 
     end
+
+
 
     class Kramdown
 
