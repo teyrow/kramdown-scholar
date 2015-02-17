@@ -89,13 +89,15 @@ class Kramdown::Parser::KramdownScholar < Kramdown::Parser::Kramdown
         #binding.pry
         el.children.each do |e|
           if e.type == :header
+            e.type = :eledheader
             e.options[:unnumbered] = true
-            numbering.children << e
-          else
+          end
+          #  numbering.children << e
+          # else
             para = new_block_el(:pstart)          
             para.children << e
             numbering.children << para
-          end
+          #end
         end
         #numbering.children << new_block_el(:br)
         el = new_block_el(:scholar)

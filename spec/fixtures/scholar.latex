@@ -1,14 +1,16 @@
 \beginnumbering
-\section*{A first heading}
-\addcontentsline{toc}{section}{A first heading}
+\pstart
+\eledsection*{A first heading}
 
+\pend
 \pstart
 The following paragraf with \edtext{critical text in aparatus A}{\lemma{critical text in aparatus A\rbracket}\Aendnote{The footnote not too short}} and end. And some more text to detect hanging indent? Should be nice to fix in template. 
 
 \pend
-\section*{A secong heading}
-\addcontentsline{toc}{section}{A secong heading}
+\pstart
+\eledsection*{A second heading}
 
+\pend
 \pstart
 In this case there is no extra space after the heading and repeat above: The following paragraf with \edtext{the lemma in \emph{bold} A}{\lemma{the lemma in \emph{bold} A\rbracket}\Aendnote{A longer endnote to use in the end of the document just to check the hanging indent. I can \textbf{boogie} and yes.}} and end. And some more text to detect hanging indent? Should be nice to fix in template.\newline
 Using the hard line break above. 
@@ -25,16 +27,18 @@ Semiotics Blue Bottle irony, keffiyeh street art typewriter PBR-B deep v Odd Fut
 \endnumbering
 
 \beginnumbering
-\section*{Cap 2}
-\addcontentsline{toc}{section}{Cap 2}
+\pstart
+\eledsection*{Cap 2}
 
+\pend
 \pstart
 The following paragraf with \edtext{critical text in aparatus B}{\lemma{critical text in aparatus B\rbracket}\Bendnote{The footnote not too short}} and end. And some more text to detect hanging indent? Should be nice to fix in template. 
 
 \pend
-\section*{A Third  in chapter two}
-\addcontentsline{toc}{section}{A Third  in chapter two}
+\pstart
+\eledsection*{A Third  in chapter two}
 
+\pend
 \pstart
 In this case there is no extra space after the heading and repeat above: The following paragraf with \edtext{the lemma in \emph{bold} B}{\lemma{the lemma in \emph{bold} B\rbracket}\Bendnote{A longer endnote to use in the end of the document just to check the hanging indent. I can \textbf{boogie} and yes.}} and end. And some more text to detect hanging indent? Should be nice to fix in template.\newline
 Using the hard line break above. 

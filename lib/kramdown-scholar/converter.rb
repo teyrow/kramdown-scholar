@@ -64,6 +64,9 @@ module Kramdown
         #end
         "<sup id=\"fnref:#{name}#{repeat}\"><a href=\"#fn:#{name}\" class=\"footnote\">#{number}</a></sup>"
       end    
+      def convert_eledheader(el, opts)
+        convert_header(el, opts)
+      end
 
     end
 
@@ -84,6 +87,7 @@ module Kramdown
        def initialize(root, options)
          initialize_orig(root, options)
          @data[:endnotes] = Set.new
+         @options[:latex_eledheaders] = @options[:latex_headers].map { |e| "eled#{e}" }
        end
 
       def convert_pages(el, opts)
@@ -186,6 +190,17 @@ module Kramdown
           "#{convert_header_orig(el, opts).strip}\n\\addcontentsline{toc}{#{type}}{#{inner(el, opts)}}\n\n"
         else
           convert_header_orig(el, opts)
+        end
+      end
+      
+      def convert_eledheader(el, opts)
+        type = @options[:latex_eledheaders][output_header_level(el.options[:level]) - 1]
+        el.attr['class'] = 'no_toc'
+        if ((id = el.attr['id']) ||
+            (@options[:auto_ids] && (id = generate_id(el.options[:raw_text])))) && in_toc?(el)
+          "\\#{type}{#{inner(el, opts)}}\\hypertarget{#{id}}{}\\label{#{id}}\n\n"
+        else
+          "\\#{type}*{#{inner(el, opts)}}\n\n"
         end
       end
 

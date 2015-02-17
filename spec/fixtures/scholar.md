@@ -4,7 +4,7 @@
 
 The following paragraf with [critical text in aparatus A]^A(The footnote not too short) and end. And some more text to detect hanging indent? Should be nice to fix in template. 
 
-# A secong heading
+# A second heading
 In this case there is no extra space after the heading and repeat above: The following paragraf with [the lemma in *bold* A]^A(A longer endnote to use in the end of the document just to check the hanging indent. I can __boogie__ and yes.) and end. And some more text to detect hanging indent? Should be nice to fix in template.  
 Using the hard line break above. 
 
