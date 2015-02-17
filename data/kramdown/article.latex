@@ -1,5 +1,5 @@
 %!TEX program = xelatex
-\documentclass[12pt,a4paper,draft]{book}
+\documentclass[12pt,a4paper]{article}
 
 
 <% if RUBY_VERSION >= '1.9' %>
@@ -62,6 +62,10 @@
 %\tableofcontents
 
 <%= body %>
+
+<% (converter.data[:endnotes] || []).each do |l| %>
+<%= "\n\\doendnotes{#{l}}\\medskip" %>
+<% end %>
 
 %\bibliographystyle{abbrvnat}
 %\bibliography{00,items}

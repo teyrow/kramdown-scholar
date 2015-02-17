@@ -79,10 +79,12 @@ module Kramdown
 
     class Latex
       alias_method :convert_header_orig, :convert_header
-      # def initialize(root, options)
-      #   super
-      #   @data[:endnotes] = Set.new
-      # end
+      alias_method :initialize_orig, :initialize
+
+       def initialize(root, options)
+         initialize_orig(root, options)
+         @data[:endnotes] = Set.new
+       end
 
       def convert_pages(el, opts)
         # TODO remove and use numbering
@@ -95,10 +97,10 @@ module Kramdown
       def convert_numbering(el, opts)
         @data[:packages] << 'eledmac' #Must be before eledpar
         @data[:packages] << 'eledpar' #? needed? 
-        s = "\\newpage\\beginnumbering\n#{latex_link_target(el)}#{inner(el, opts)}"
-        @data[:endnotes].each do |l|
-          s << "\n\\doendnotes{#{l}}"
-        end
+        s = "\\beginnumbering\n#{latex_link_target(el)}#{inner(el, opts)}"
+        #@data[:endnotes].each do |l|
+        #  s << "\n\\doendnotes{#{l}}"
+        #end
         s << "\\endnumbering\n"
       end
 
@@ -194,7 +196,6 @@ module Kramdown
 
       def convert_scholar(el, opts)
         @data[:use_endnotes] = true
-        @data[:endnotes] = Set.new
         inner(el, opts)
       end
 

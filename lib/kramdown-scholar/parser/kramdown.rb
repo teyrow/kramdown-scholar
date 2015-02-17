@@ -97,7 +97,7 @@ class Kramdown::Parser::KramdownScholar < Kramdown::Parser::Kramdown
             numbering.children << para
           end
         end
-        numbering.children << new_block_el(:hr)
+        #numbering.children << new_block_el(:br)
         el = new_block_el(:scholar)
         # TODO pass options to el-converter        
         el.children << numbering
