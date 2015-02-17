@@ -1,5 +1,5 @@
 %!TEX program = xelatex
-\documentclass[12pt|a4paper|draft]{book}
+\documentclass[12pt,a4paper,draft]{book}
 
 
 <% if RUBY_VERSION >= '1.9' %>
@@ -37,11 +37,12 @@
 \renewcommand*{\printnpnum}[1]{}
 
 % no hanging indent:
-\setlength{\parindent}{0pt}
+%\setlength{\parindent}{0pt}
 
 \Xendnotefontsize{\normalsize}
-%\Xhangindent{20pt}
+\Xhangindent{0pt}
 %\bhookXendnote{\lbracket}
+\bhookXendnote{\setlength{\parindent}{0pt}}
 %\renewcommand{\showlemma}[1]{\textbf{#1}}% or simply ...[1]{#1}
 
 %\lemmaseparator[A]{XX}
