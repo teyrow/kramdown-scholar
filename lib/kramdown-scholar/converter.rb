@@ -83,7 +83,6 @@ module Kramdown
     class Latex
       alias_method :convert_header_orig, :convert_header
       alias_method :initialize_orig, :initialize
-      alias_method :escape_orig, :escape
 
       def initialize(root, options)
         initialize_orig(root, options)
@@ -219,10 +218,9 @@ module Kramdown
         inner(el, opts)
       end
 
-      def escape(str)
-        # binding.pry
-        escape_orig(str).gsub("§", "\\S")
-      end
+      # Adding extra escapes (patching)
+      ESCAPE_MAP["§"] = "\\S"
+      ESCAPE_RE = Regexp.union(*ESCAPE_MAP.collect {|k,v| k})
     end
 
 
