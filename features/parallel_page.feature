@@ -15,3 +15,4 @@ Scenario Outline: pdf generation
     | ed_text             | article.latex  |
     | citations           | article.latex  |
     | scholar             | article.latex  |
+    | scholar_cites       | article.latex  |

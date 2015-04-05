@@ -83,12 +83,14 @@ module Kramdown
     class Latex
       alias_method :convert_header_orig, :convert_header
       alias_method :initialize_orig, :initialize
+      alias_method :escape_orig, :escape
 
-       def initialize(root, options)
-         initialize_orig(root, options)
-         @data[:endnotes] = Set.new
-         @options[:latex_eledheaders] = @options[:latex_headers].map { |e| "eled#{e}" }
-       end
+      def initialize(root, options)
+        initialize_orig(root, options)
+        @data[:endnotes] = Set.new
+        @data['biblatex'] = 'style=authortitle-ibid,natbib=true,backend=bibtex8'
+        @options[:latex_eledheaders] = @options[:latex_headers].map { |e| "eled#{e}" }
+      end
 
       def convert_pages(el, opts)
         # TODO remove and use numbering
@@ -150,7 +152,8 @@ module Kramdown
       end
 
       def convert_citation(el, opts)
-        @data[:packages] << 'natbib'
+        @data[:packages] << 'biblatex'
+        @data[:packages] << 'csquotes'
 
         res = el.children.map do |child|
           els = child.children
@@ -174,6 +177,8 @@ module Kramdown
       end
 
       def convert_cite_textual(el, opts)
+        @data[:packages] << 'biblatex'
+        @data[:packages] << 'csquotes'
         cmd = el.options[:supress_author] ? '\citeyear' : '\citet'
         cmd <<   "{#{el.value}}"
       end
@@ -214,6 +219,10 @@ module Kramdown
         inner(el, opts)
       end
 
+      def escape(str)
+        # binding.pry
+        escape_orig(str).gsub("§", "\\S")
+      end
     end
 
 

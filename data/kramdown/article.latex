@@ -13,13 +13,20 @@
 \usepackage{hyperref}
 \usepackage{fontspec,xunicode}
 \usepackage[english]{babel}
+\usepackage{csquotes}
 %\setmainfont{DejaVu Serif}
 
 
 
 
-<% @converter.data[:packages].each {|pkg| %>\usepackage{<%= pkg %>}
-<% } %>
+
+<% @converter.data[:packages].each do |pkg|%> 
+\usepackage[<%= @converter.data[pkg] %>]{<%= pkg %>}
+<% end %>
+
+<% if @converter.data[:packages].include? 'biblatex' %>
+  \addbibresource{bibtex.bib}
+<% end %>
 
 <% if @converter.data[:packages].include?('fancyvrb') %>
 \VerbatimFootnotes
@@ -34,16 +41,22 @@
 
 % endnote pagenumber:
 %\newcommand*{\printnpnum}[1]{p.#1) }
-\renewcommand*{\printnpnum}[1]{}
+\ifdefined \printnpnum
+  \renewcommand*{\printnpnum}[1]{}
+\fi
 
 % no hanging indent:
 %\setlength{\parindent}{0pt}
 
-\Xendnotefontsize{\normalsize}
-\Xhangindent{0pt}
-%\bhookXendnote{\lbracket}
-\bhookXendnote{\setlength{\parindent}{0pt}}
-%\renewcommand{\showlemma}[1]{\textbf{#1}}% or simply ...[1]{#1}
+\ifdefined \Xendnotefontsize
+  \Xendnotefontsize{\normalsize}
+
+  \Xhangindent{0pt}
+  %\bhookXendnote{\lbracket}
+  \bhookXendnote{\setlength{\parindent}{0pt}}
+  %\renewcommand{\showlemma}[1]{\textbf{#1}}% or simply ...[1]{#1}
+\fi
+
 
 %\lemmaseparator[A]{XX}
 
@@ -63,10 +76,12 @@
 
 <%= body %>
 
-<% (converter.data[:endnotes] || []).each do |l| %>
+<% (@converter.data[:endnotes] || []).each do |l| %>
 <%= "\n\\doendnotes{#{l}}\\medskip" %>
 <% end %>
 
-%\bibliographystyle{abbrvnat}
-%\bibliography{00,items}
+
+<% if @converter.data[:packages].include? 'biblatex' %>
+\printbibliography
+<% end %>
 \end{document}
