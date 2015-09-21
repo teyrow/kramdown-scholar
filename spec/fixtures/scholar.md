@@ -1,3 +1,4 @@
+{::options use_endnotes="true"/}
 {::scholar}
 
 # A first heading

@@ -20,4 +20,5 @@ require 'kramdown-scholar/version'
 
 require 'kramdown'
 require 'kramdown-scholar/parser'
+require 'kramdown-scholar/options'
 require 'kramdown-scholar/converter'

@@ -213,8 +213,8 @@ module Kramdown
         "\\ledsidenote{#{inner(el, opts)}}"
       end
 
-      def convert_scholar(el, opts)
-        @data[:use_endnotes] = true
+      def convert_scholar(el, opts)              
+        @data[:use_endnotes] = @options[:use_endnotes];
         inner(el, opts)
       end
 
